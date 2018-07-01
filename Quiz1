@@ -1,0 +1,31 @@
+setwd("C:/Users/jack3/Desktop/UniMelb/Data science specialisation/R-programming/R-files")
+library(readr)
+dataset <- read_csv("hw1_data.csv")
+dataset[1:2,] ##extracting the first two rows of the dataset
+dataset[152:153,]  ##extracting the last two rows
+dataset[47,1]
+ozone<-dataset[,1]
+sum(is.na(ozone)) ##count how many missing values in ozone column
+########calculate the mean of ozone colum without the missing values
+good<-complete.cases(ozone)
+nm<-head(ozone[good,1],153)
+colMeans(nm)
+#What is the mean of the Ozone column in this dataset? Exclude 
+# missing values (coded as NA) from this calculation. (alternative way)
+Ozone <- na.omit(dataset$Ozone)
+as.numeric(Ozone)
+mean(Ozone)
+###
+#Extract the subset of rows of the data frame where Ozone values are above 31 and Temp 
+# values are above 90. What is the mean of Solar.R in this subset?
+data.subO <- dataset[dataset$Ozone > 31, , drop = FALSE]
+data.subTO <- data.subO[data.subO$Temp > 90, , drop = FALSE]
+data.subTOO <- na.omit(data.subTO)
+mean(data.subTOO$Solar.R)
+#What is the mean of "Temp" when "Month" is equal to 6?
+data.June <- dataset[dataset$Month == 6, , drop = FALSE]
+mean(data.June$Temp)
+#What was the maximum ozone value in the month of May (i.e. Month = 5)?
+data.May <- dataset[dataset$Month == 5, , drop = FALSE]
+data.MayO <- na.omit(data.May)
+max(data.MayO$Ozone)
